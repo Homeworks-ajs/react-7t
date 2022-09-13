@@ -1,20 +1,25 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import ListItem from './list-item/ListItem'
 
-function List({dataList}) {
+function List({clickLoadData}) {
+  const [state, setState] = useState([]);
+  
+  useEffect(() => {
+    fetch("https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json")
+      .then(response => response.json())
+      .then(data => setState(data))
+  }, [])
+
   return (
     <ul className="list-group">
-      {dataList.map(({id, name}) => <ListItem name={name} key={id} data-id={id} />)}
+      {state.map(({id, name}) => <ListItem name={name} key={id} data-id={id} clickLoadData={clickLoadData}/>)}
     </ul>
   )
 }
 
 List.propTypes = {
-  dataList: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired
-  })
+  clickLoadData: PropTypes.func.isRequired
 }
 
 export default List

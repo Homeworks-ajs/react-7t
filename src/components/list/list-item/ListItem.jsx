@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function ListItem({name}) {
+function ListItem({name, clickLoadData}) {
   return (
-    <li className="list-group-item">{name}</li>
+    <li className="list-group-item list-group-item-action" onClick={clickLoadData}>{name}</li>
   )
 }
 

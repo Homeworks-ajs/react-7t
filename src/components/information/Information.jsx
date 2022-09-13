@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 import Details from '../details/Details'
 import List from '../list/List'
 
 
 export default function Information() {
-  const [state, setState] = useState([]);
+  const userRef = useRef({id: 1, name: undefined});
 
-  useEffect(() => {
-    fetch("https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json")
-    .then(response => response.json())
-    .then(data => setState(data))
-  }, [])
+  const clickLoadData = (evt) => {
+    const { id } = evt.target.dataset;
+    const name = evt.target.textContent;
+    userRef.current = {
+      id, name
+    };
+  }
 
   return (
     <>
-      <List dataList={state} />
+      <div className="row">
+        <div className="col">
+          <List clickLoadData={clickLoadData} />
+        </div>
+        <div className="col">
+          <Details userData={userRef} />
+        </div>
+      </div>
+
     </>
 
   )
