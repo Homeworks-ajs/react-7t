@@ -4,18 +4,16 @@ import List from '../list/List'
 
 
 export default function Information() {
-  const userRef = useRef({id: null, name: null});
+  const [state, setState] = useState({id: null, name: null})
 
   const clickLoadData = (evt) => {
     
     const { id } = evt.target.dataset;
     const name = evt.target.textContent;
 
-    console.log(id, name)
-
-    userRef.current = {
+    setState({
       id, name
-    };
+    });
   }
 
   return (
@@ -25,7 +23,7 @@ export default function Information() {
           <List clickLoadData={clickLoadData} />
         </div>
         <div className="col">
-          <Details userData={userRef} />
+          <Details userData={state} />
         </div>
       </div>
 
