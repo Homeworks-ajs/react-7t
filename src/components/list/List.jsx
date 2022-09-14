@@ -9,11 +9,11 @@ function List({clickLoadData}) {
     fetch("https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json")
       .then(response => response.json())
       .then(data => setState(data))
-  }, [])
+  }, [state.length])
 
   return (
     <ul className="list-group">
-      {state.map(({id, name}) => <ListItem name={name} key={id} data-id={id} clickLoadData={clickLoadData}/>)}
+      {state.map(({id, name}) => <ListItem name={name} id={id} key={id} clickLoadData={clickLoadData}/>)}
     </ul>
   )
 }

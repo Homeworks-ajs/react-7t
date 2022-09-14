@@ -6,15 +6,17 @@ import LoadPlaceholder from './load-placeholder/LoadPlaceholder';
 function Details({userData}) {
   const [user, setUser] = useState({});
 
-  useEffect((id, rt) => {
-    console.log(id, rt)
-    fetch(`https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/${userData.current.id}.json`)
+  useEffect(() => {
+    if(user.id) {
+      console.log(1)
+      fetch(`https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/${userData.current.id}.json`)
       .then(response => response.json())
-      .then(data => setUser(data))
+      .then(data => setUser(data))   
+    }
   }, [userData.current.id])
 
   return (
-    <Card {...user}/>
+    userData.current.id ? <Card {...user}/> : <LoadPlaceholder />
   )
 }
 
