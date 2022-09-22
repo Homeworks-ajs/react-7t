@@ -4,17 +4,20 @@ import List from '../list/List'
 
 
 export default function Information() {
-  const [state, setState] = useState({id: null, name: null})
+  const [state, setState] = useState({id: null, name: null});
 
   const clickLoadData = (evt) => {
     
     const { id } = evt.target.dataset;
     const name = evt.target.textContent;
 
-    setState({
-      id, name
-    });
+    if(state.id !== id) {
+      setState({
+        id, name
+      });
+    }
   }
+
 
   return (
     <>
@@ -26,8 +29,6 @@ export default function Information() {
           <Details userData={state} />
         </div>
       </div>
-
     </>
-
   )
 }

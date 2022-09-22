@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Card from './card/Card'
 
@@ -10,7 +10,10 @@ function Details({userData}) {
 }
 
 Details.propTypes = {
-
+  userData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+  })
 }
 
 export default Details

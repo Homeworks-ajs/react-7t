@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import PlaceholderParagraph from '../placeholders/PlaceholderParagraph';
 
-export default function Card({ id }) {
+export default function Card({ id, name }) {
   const [user, setUser] = useState({details: {}});
 
   useEffect(() => {
@@ -11,11 +10,11 @@ export default function Card({ id }) {
     fetch(`https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/${id}.json`)
       .then(response => response.json())
       .then(data => setUser(data))
-  }, [id])
+  }, [id, name])
 
   return (
     <div className="card">
-      {user.avatar ? <img src={user.avatar} className="card-img-top" /> : <img className="card-img-top placeholder" alt="..." />}
+      {user.avatar ? <img src={user.avatar + `?random=${id}`} className="card-img-top" /> : <img className="card-img-top placeholder" alt="..." />}
       <div className="card-body">
         <h5 className="card-title">{user.name || <PlaceholderParagraph />}</h5>
         <p className="card-text">City: {user.details.city || <PlaceholderParagraph />}</p>
@@ -25,14 +24,3 @@ export default function Card({ id }) {
     </div>
   )
 }
-
-Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-  details: PropTypes.shape({
-    city: PropTypes.string.isRequired,
-    company: PropTypes.string.isRequired,
-    position: PropTypes.string.isRequired
-  })
-}
-
