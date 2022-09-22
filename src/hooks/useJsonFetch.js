@@ -4,6 +4,7 @@ const useJsonFetch = (url, opts = {}) => {
 
   const result = [null, true, null]
   const [state, setState] = useState([])
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:7070" + url, opts)
@@ -20,10 +21,13 @@ const useJsonFetch = (url, opts = {}) => {
         result[1] = false;
 
         setState(result)
-      })
+      }).catch(e => setError(e))
 
   }, [url])
 
+  if(error) {
+    return error;
+  }
   return !state.length ? result : state;
 }
 
